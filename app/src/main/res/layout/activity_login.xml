@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    android:padding="16dp">
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageViewLogo"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:src="@drawable/logo"-->
+<!--        android:layout_marginBottom="32dp" />-->
+
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Tên người dùng"
+        android:inputType="text"
+        android:minHeight="48dp" />
+    <!--        android:layout_below="@id/imageViewLogo"-->
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextUsername"
+        android:layout_marginTop="16dp"
+        android:hint="Mật khẩu"
+        android:inputType="textPassword"
+        android:minHeight="48dp" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextPassword"
+        android:layout_marginTop="16dp"
+        android:text="Đăng nhập" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewRegister"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/buttonLogin"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="Bạn chưa có tài khoản? Đăng ký ngay!"-->
+<!--        android:textAlignment="center"/>-->
+<!--&lt;!&ndash;        android:textColor="@color/colorPrimaryDark" />&ndash;&gt;-->
+
+</RelativeLayout>
