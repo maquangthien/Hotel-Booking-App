@@ -10,8 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText usernameEditText, emailEditText, passwordEditText, phoneEditText;
-    Button registerButton;
+    EditText edtUsername, edtMail, edtPassword, edtPhone;
+    Button btnRegister;
     DatabaseHelper dbHelper;
 
     @Override
@@ -19,19 +19,19 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        usernameEditText = findViewById(R.id.usernameEditText);
-        emailEditText = findViewById(R.id.emailEditText);
-        phoneEditText = findViewById(R.id.phoneEditText);
-        passwordEditText = findViewById(R.id.passwordEditText);
-        registerButton = findViewById(R.id.registerButton);
+        edtUsername = findViewById(R.id.edtUsername);
+        edtMail = findViewById(R.id.edtMail);
+        edtPhone = findViewById(R.id.edtPhone);
+        edtPassword = findViewById(R.id.edtPassword);
+        btnRegister = findViewById(R.id.btnRegister);
 
         dbHelper = new DatabaseHelper(this);
 
-        registerButton.setOnClickListener(v -> {
-            String username = usernameEditText.getText().toString().trim();
-            String email = emailEditText.getText().toString().trim();
-            String phone = phoneEditText.getText().toString().trim();
-            String password = passwordEditText.getText().toString().trim();
+        btnRegister.setOnClickListener(v -> {
+            String username = edtUsername.getText().toString().trim();
+            String email = edtMail.getText().toString().trim();
+            String phone = edtPhone.getText().toString().trim();
+            String password = edtPassword.getText().toString().trim();
 
             if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
                 // Thêm người dùng vào cơ sở dữ liệu

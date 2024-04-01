@@ -3,52 +3,96 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/white">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageViewLogo"-->
-<!--        android:layout_width="100dp"-->
-<!--        android:layout_height="100dp"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:src="@drawable/logo"-->
-<!--        android:layout_marginBottom="32dp" />-->
+
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo"
+        android:layout_marginBottom="32dp" />
 
     <EditText
         android:id="@+id/editTextUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_margin="10dp"
         android:hint="Tên người dùng"
         android:inputType="text"
-        android:minHeight="48dp" />
-    <!--        android:layout_below="@id/imageViewLogo"-->
+        android:minHeight="48dp"
+        android:background="@drawable/border"
+        />
+
 
     <EditText
+
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextUsername"
-        android:layout_marginTop="16dp"
+        android:layout_margin="10dp"
         android:hint="Mật khẩu"
         android:inputType="textPassword"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:background="@drawable/border"/>
 
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextPassword"
         android:layout_marginTop="16dp"
-        android:text="Đăng nhập" />
+        android:text="Đăng nhập"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/pink"/>
 
-<!--    <TextView-->
-<!--        android:id="@+id/textViewRegister"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/buttonLogin"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:text="Bạn chưa có tài khoản? Đăng ký ngay!"-->
-<!--        android:textAlignment="center"/>-->
-<!--&lt;!&ndash;        android:textColor="@color/colorPrimaryDark" />&ndash;&gt;-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
 
+        android:gravity="center"
+        >
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/buttonLogin"
+
+            android:text="Bạn chưa có tài khoản? "
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/textViewRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đăng ký ngay!"
+            android:onClick="onRegisterClick"
+            android:textColor="@color/darkblue" />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Quên mật khẩu?"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+
+        />
+
+
+
+</LinearLayout>
 </RelativeLayout>
