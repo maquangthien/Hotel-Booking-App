@@ -7,31 +7,64 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ứng dụng đặt khách sạn"
-        android:textSize="24sp"
-        android:textStyle="bold"/>
-
-   
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Đăng nhập"
-        android:layout_below="@id/titleTextView"
-        android:layout_marginTop="16dp"/>
+<!--    <TextView-->
+<!--        android:id="@+id/titleTextView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Ứng dụng đặt khách sạn"-->
+<!--        android:textSize="24sp"-->
+<!--        android:textStyle="bold"/>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Đăng ký"
-        android:layout_below="@id/loginButton"
-        android:layout_marginTop="16dp"/>
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="200dp"
+            android:background="@drawable/logo" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:paddingTop="20dp"
+            android:text="H2T Booking Hotel App"
+            android:textAlignment="center"
+            android:textColor="@color/pink"
+            android:textSize="24dp"
+
+            />
+
+
+        <!--    <Button-->
+        <!--        android:id="@+id/btnLogin"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_below="@id/titleTextView"-->
+        <!--        android:layout_marginTop="16dp"-->
+        <!--        android:text="Đăng nhập" />-->
+
+        <!--    <Button-->
+        <!--        android:id="@+id/btnRegister"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_below="@id/btnLogin"-->
+        <!--        android:layout_marginTop="16dp"-->
+        <!--        android:text="Đăng ký" />-->
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="150dp"
+            />
+
+
+    </LinearLayout>
+
 
 
 
