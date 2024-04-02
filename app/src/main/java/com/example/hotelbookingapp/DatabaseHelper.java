@@ -27,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USERNAME = "username";
     private static final String COLUMN_EMAIL = "email";
     private static final String COLUMN_PHONE = "phone";
+    private static final String COLUMN_DOB = "DOB";
     private static final String COLUMN_PASSWORD = "password";
     private static final String COLUMN_ROLE_ID_FK = "roleId";
 
@@ -57,6 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_USERNAME + " TEXT,"
                 + COLUMN_EMAIL + " TEXT,"
                 + COLUMN_PHONE + " TEXT,"
+                + COLUMN_DOB + " TEXT,"
                 + COLUMN_PASSWORD + " TEXT,"
                 + COLUMN_ROLE_ID_FK + " INTEGER,"
                 + "FOREIGN KEY(" + COLUMN_ROLE_ID_FK + ") REFERENCES " + TABLE_ROLE + "(" + COLUMN_ROLE_ID + ")"
