@@ -7,29 +7,69 @@
     android:layout_height="match_parent"
     tools:context=".CustomerMainActivity">
 
+    <!-- SearchView -->
+
+    <SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="91dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:queryHint="Tìm kiếm khách sạn"
+        app:iconifiedByDefault="false" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/suggestionRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone" />
+
+
+    <!-- Fragment Container -->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="454dp"
         android:layout_above="@id/bottom_navigation"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:drawableStart="@drawable/ic_home"
-            android:hint="Tìm kiếm địa điểm, khách sạn"
-            />
+        android:layout_below="@id/search_view"
+        android:layout_marginTop="43dp"
+        android:layout_marginBottom="16dp" >
 
     </FrameLayout>
 
+    <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:menu="@menu/nav_menu" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="77dp"
+        android:layout_height="54dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        app:srcCompat="@drawable/ic_notification" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="102dp"
+        android:layout_height="49dp"
+        android:layout_alignTop="@id/imageView"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:text="H2T"
+        android:textColor="@color/pink"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
 </RelativeLayout>
