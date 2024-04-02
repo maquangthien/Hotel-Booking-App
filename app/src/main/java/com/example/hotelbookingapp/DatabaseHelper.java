@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Hotel.db";
@@ -64,21 +67,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // tạo bảng hotel
         String CREATE_HOTEL_TABLE = "CREATE TABLE " + TABLE_HOTEL + "("
-                + COLUMN_HOTEL_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_HOTEL_NAME +" TEXT, "
+                + COLUMN_HOTEL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_HOTEL_NAME + " TEXT, "
                 + COLUMN_LOCATION + " TEXT "
-                +")";
+                + ")";
         db.execSQL(CREATE_HOTEL_TABLE);
 
-        insertUser( db, "Admin", "Admin@gmail.com", "086868686", "123", Integer.parseInt("1"));
-//-----------------------------------------------------------------------------------------------------------------------------------
-        insertRole(db, "Admin");
-        insertRole(db, "Employee");
-        insertRole(db, "Customer");
-//        -----------------------------------------------------------------------------------------------------------------------------------
-        insertHotel(db, "Hoang gia", "HCM");
-        insertHotel(db, "Thanh nghi", "HCM");
-        insertHotel(db, "Gia LONG", "HCM");
+        insertData(db);
 
     }
 
@@ -88,6 +83,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROLE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOTEL);
         onCreate(db);
+    }
+
+    private void insertData(SQLiteDatabase db) {
+        // Thêm dữ liệu mẫu cho role
+        insertRole(db, "Admin");
+        insertRole(db, "Employee");
+        insertRole(db, "Customer");
+
+        // Thêm dữ liệu mẫu cho users
+        insertUser(db, "Admin", "Admin@gmail.com", "086868686", "123", 1);
+
+        // Thêm dữ liệu mẫu cho hotel
+        insertHotel(db, "Hoang gia", "HCM");
+        insertHotel(db, "Thanh nghi", "HCM");
+        insertHotel(db, "Gia LONG", "HCM");
+        insertHotel(db, "Mường Thanh", "HCM");
+        insertHotel(db, "Mường Thanh", "Hà Nội");
     }
 
     public long addUser(String username, String email, String phone, String password, int roleId) {
@@ -147,6 +159,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_HOTEL, null, values);
     }
 
-
+    public List<String> getHotelSuggestions(String query) {
+        List<String> suggestions = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_HOTEL_NAME};
+        String selection = COLUMN_HOTEL_NAME + " LIKE ?";
+        String[] selectionArgs = {"%" + query + "%"};
+        Cursor cursor = db.query(TABLE_HOTEL, columns, selection, selectionArgs, null, null, null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                int columnIndex = cursor.getColumnIndex(COLUMN_HOTEL_NAME);
+                if (columnIndex >= 0) {
+                    String hotelName = cursor.getString(columnIndex);
+                    suggestions.add(hotelName);
+                }
+            }
+            cursor.close();
+        }
+        db.close();
+        return suggestions;
+    }
 
 }
