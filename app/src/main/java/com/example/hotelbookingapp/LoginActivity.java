@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                 String username = editTextUsername.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
 
+
                 int roleId = dbHelper.getUserRoleId(username, password); // Lấy roleId của người dùng
 
                 if (roleId != -1) {
