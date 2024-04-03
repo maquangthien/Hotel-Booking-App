@@ -11,6 +11,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import controller.LoginActivity;
+import controller.RegisterActivity;
+
 public class MainActivity extends AppCompatActivity {
     Button register, login;
     @Override
