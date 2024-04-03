@@ -1,12 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/main"
+    android:background="@android:color/white"
     tools:context=".MainActivity">
 
+<<<<<<< HEAD
+    <!-- Header -->
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ứng dụng Đặt Khách Sạn"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:padding="16dp"/>
+
+    <!-- Nút Đăng Nhập -->
+
+    <!-- Nút Đăng Ký -->
+
+    <!-- Banner Quảng Cáo -->
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleTextView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="-4dp"
+        android:text="Đăng Nhập"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginButton"
+        android:layout_marginTop="-52dp"
+        android:layout_marginEnd="15dp"
+        android:layout_toStartOf="@+id/loginButton"
+        android:text="Đăng Ký"
+        android:textColor="@android:color/white" />
+=======
 <!--    <TextView-->
 <!--        android:id="@+id/titleTextView"-->
 <!--        android:layout_width="wrap_content"-->
@@ -65,7 +104,62 @@
 
     </LinearLayout>
 
+>>>>>>> fc68c360c002e0dec7c76da427ba1a3eb088f5f2
 
+    <ImageView
+        android:id="@+id/bannerImageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:layout_below="@id/registerButton"
+        android:padding="16dp"/>
 
+    <!-- Danh sách khách sạn phổ biến -->
+    <TextView
+        android:id="@+id/popularHotelsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Khách Sạn Phổ Biến"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@id/bannerImageView"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <!-- RecyclerView để hiển thị danh sách khách sạn phổ biến -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/popularHotelsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/popularHotelsTextView"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <!-- Các nút chức năng -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_below="@id/popularHotelsRecyclerView"
+        android:layout_marginTop="16dp"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/searchButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tìm Kiếm"/>
+
+        <Button
+            android:id="@+id/bookNowButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Đặt Phòng"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
