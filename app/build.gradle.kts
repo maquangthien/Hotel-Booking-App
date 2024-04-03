@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-
+    implementation("org.mindrot:jbcrypt:0.4")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -41,4 +41,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
 }

@@ -11,6 +11,9 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Hotel.db";
@@ -43,6 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
+
     public void onCreate(SQLiteDatabase db) {
         // Tạo bảng role
         String CREATE_ROLE_TABLE = "CREATE TABLE " + TABLE_ROLE + "("
@@ -91,8 +95,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertRole(db, "Employee");
         insertRole(db, "Customer");
 
+
+        String hashPass = PasswordUtils.hashPassword("123");
         // Thêm dữ liệu mẫu cho users
-        insertUser(db, "Admin", "Admin@gmail.com", "086868686", "123", 1);
+        insertUser(db, "Admin", "Admin@gmail.com", "086868686", hashPass, 1);
 
         // Thêm dữ liệu mẫu cho hotel
         insertHotel(db, "Hoang gia", "HCM");
@@ -108,25 +114,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_USERNAME, username);
         values.put(COLUMN_EMAIL, email);
         values.put(COLUMN_PHONE, phone);
-        values.put(COLUMN_PASSWORD, password);
+        values.put(COLUMN_PASSWORD, PasswordUtils.hashPassword(password));
         values.put(COLUMN_ROLE_ID_FK, roleId);
         long id = db.insert(TABLE_USERS, null, values);
         db.close();
         return id;
     }
 
+
     public int getUserRoleId(String username, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {COLUMN_ROLE_ID_FK};
-        String selection = COLUMN_USERNAME + "=? AND " + COLUMN_PASSWORD + "=?";
-        String[] selectionArgs = {username, password};
+        String[] columns = {COLUMN_ROLE_ID_FK, COLUMN_PASSWORD};
+        String selection = COLUMN_USERNAME + "=?";
+        String[] selectionArgs = {username};
         Cursor cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
         int roleId = -1;
         if (cursor != null && cursor.moveToFirst()) {
-            int columnIndex = cursor.getColumnIndex(COLUMN_ROLE_ID_FK);
-            if (columnIndex >= 0) {
-                roleId = cursor.getInt(columnIndex);
-            }
+            do {
+                int passwordColumnIndex = cursor.getColumnIndex(COLUMN_PASSWORD);
+                if (passwordColumnIndex >= 0) {
+                    String hashedPassword = cursor.getString(passwordColumnIndex);
+                    if (PasswordUtils.checkPassword(password, hashedPassword)) {
+                        int roleIdColumnIndex = cursor.getColumnIndex(COLUMN_ROLE_ID_FK);
+                        if (roleIdColumnIndex >= 0) {
+                            roleId = cursor.getInt(roleIdColumnIndex);
+                            break;
+                        }
+                    }
+                }
+            } while (cursor.moveToNext());
         }
         if (cursor != null) {
             cursor.close();
