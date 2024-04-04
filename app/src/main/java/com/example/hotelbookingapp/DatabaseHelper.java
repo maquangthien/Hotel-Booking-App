@@ -39,6 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_HOTEL_ID = "id";
     private static final String COLUMN_HOTEL_NAME = "hotelName";
     private static final String COLUMN_LOCATION = "location";
+    private static final String COLUMN_IMAGE = "image";
 
 
     public DatabaseHelper(@Nullable Context context) {
@@ -73,7 +74,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String CREATE_HOTEL_TABLE = "CREATE TABLE " + TABLE_HOTEL + "("
                 + COLUMN_HOTEL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_HOTEL_NAME + " TEXT, "
-                + COLUMN_LOCATION + " TEXT "
+                + COLUMN_LOCATION + " TEXT ,"
+                + COLUMN_IMAGE + " TEXT"
                 + ")";
         db.execSQL(CREATE_HOTEL_TABLE);
 
@@ -101,11 +103,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertUser(db, "Admin", "Admin@gmail.com", "086868686", hashPass, 1);
 
         // Thêm dữ liệu mẫu cho hotel
-        insertHotel(db, "Hoang gia", "HCM");
-        insertHotel(db, "Thanh nghi", "HCM");
-        insertHotel(db, "Gia LONG", "HCM");
-        insertHotel(db, "Mường Thanh", "HCM");
-        insertHotel(db, "Mường Thanh", "Hà Nội");
+        insertHotel(db, "Hoang gia", "HCM", "https://cdn.tgdd.vn/Products/Images/42/78124/iphone-7-plusgold-400x460-400x460.png\t");
+        insertHotel(db, "Thanh nghi", "HCM", "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png\t");
+        insertHotel(db, "Gia LONG", "HCM","https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png\t");
+        insertHotel(db, "Mường Thanh", "HCM","https://cdn.tgdd.vn/Products/Images/42/214909/samsung-galaxynote-10-lite-chi-tiet-1-400x460.png\t");
+        insertHotel(db, "Mường Thanh", "Hà Nội", "https://cdn.tgdd.vn/Products/Images/42/214909/samsung-galaxynote-10-lite-chi-tiet-1-400x460.png\t");
     }
 
     public long addUser(String username, String email, String phone, String password, int roleId) {
@@ -168,10 +170,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void insertHotel(SQLiteDatabase db,String hotelName, String location) {
+    public void insertHotel(SQLiteDatabase db,String hotelName, String location, String image) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_HOTEL_NAME, hotelName);
         values.put(COLUMN_LOCATION, location);
+        values.put(COLUMN_IMAGE, image);
         db.insert(TABLE_HOTEL, null, values);
     }
 
