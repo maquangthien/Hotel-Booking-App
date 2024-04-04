@@ -13,7 +13,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import controller.AccountActivity;
-import controller.RegisterActivity;
 
 public class CustomerMainActivity extends AppCompatActivity {
     ImageButton account_button;
@@ -37,6 +36,8 @@ public class CustomerMainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
     }
 }
