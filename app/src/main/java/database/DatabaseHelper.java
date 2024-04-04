@@ -1,4 +1,4 @@
-package com.example.hotelbookingapp;
+package database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,10 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.hotelbookingapp.PasswordUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
+import model.User;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -110,18 +112,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertHotel(db, "Mường Thanh", "Hà Nội", "https://cdn.tgdd.vn/Products/Images/42/214909/samsung-galaxynote-10-lite-chi-tiet-1-400x460.png\t");
     }
 
-    public long addUser(String username, String email, String phone, String password, int roleId) {
+    public long addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_USERNAME, username);
-        values.put(COLUMN_EMAIL, email);
-        values.put(COLUMN_PHONE, phone);
-        values.put(COLUMN_PASSWORD, PasswordUtils.hashPassword(password));
-        values.put(COLUMN_ROLE_ID_FK, roleId);
+        values.put(COLUMN_USERNAME, user.getUsername());
+        values.put(COLUMN_EMAIL, user.getEmail());
+        values.put(COLUMN_PHONE, user.getPhone());
+        values.put(COLUMN_PASSWORD, PasswordUtils.hashPassword(user.getPassword()));
+        values.put(COLUMN_ROLE_ID_FK, 3);
+        values.put(COLUMN_DOB, user.getDOB());
         long id = db.insert(TABLE_USERS, null, values);
         db.close();
         return id;
     }
+
+
 
 
     public int getUserRoleId(String username, String password) {
@@ -197,6 +202,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         db.close();
         return suggestions;
+    }
+    public Cursor getUserInfoById(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_ID, COLUMN_USERNAME, COLUMN_EMAIL, COLUMN_PHONE, COLUMN_DOB};
+        String selection = COLUMN_ID + "=?";
+        String[] selectionArgs = {String.valueOf(userId)};
+        return db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
+    }
+    public static String getColumnUsername() {
+        return COLUMN_USERNAME;
+    }
+
+    public static String getColumnEmail() {
+        return COLUMN_EMAIL;
+    }
+
+    public static String getColumnPhone() {
+        return COLUMN_PHONE;
+    }
+
+    public static String getColumnDob() {
+        return COLUMN_DOB;
     }
 
 }
