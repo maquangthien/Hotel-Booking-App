@@ -13,6 +13,7 @@ import com.example.hotelbookingapp.PasswordUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Hotel;
 import model.User;
 
 
@@ -41,7 +42,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_HOTEL_ID = "id";
     private static final String COLUMN_HOTEL_NAME = "hotelName";
     private static final String COLUMN_LOCATION = "location";
+    private static final String COLUMN_STAR_RATING = "star_rating";
     private static final String COLUMN_IMAGE = "image";
+
+
+    //room
+    private static final String TABLE_ROOM = "room";
+    private static final String COLUMN_ROOM_ID = "id";
+    private static final String COLUMN_ROOM_NAME = "roomName";
+    private static final String COLUMN_ROOM_TYPE = "roomType";
+    private static final String COLUMN_ROOM_RATE = "rate";
+    private static final String COLUMN_ROOM_IMAGE = "image";
+    private static final String COLUMN_HOTEL_ID_FK = "hotelID";
+
+    //booking
+    private static final String TABLE_BOOKING = "booking";
+    private static final String COLUMN_BOOKING_ID = "id";
+    private static final String COLUMN_ROOM_ID_FK = "roomID";
+    private static final String COLUMN_USER_ID_FK = "userID";
+    private static final String COLUMN_CHECK_IN_DATE = "checkIn";
+    private static final String COLUMN_CHECK_OUT_DATE = "checkOut";
+    private static final String COLUMN_IS_CONFIRMED = "status";
+
 
 
     public DatabaseHelper(@Nullable Context context) {
@@ -77,12 +99,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_HOTEL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_HOTEL_NAME + " TEXT, "
                 + COLUMN_LOCATION + " TEXT ,"
+                + COLUMN_STAR_RATING + " INTEGER,"  // Thêm cột star_rating
                 + COLUMN_IMAGE + " TEXT"
                 + ")";
         db.execSQL(CREATE_HOTEL_TABLE);
 
-        insertData(db);
+        // tạo bảng room
+        String CREATE_ROOM_TABLE = "CREATE TABLE " + TABLE_ROOM + "("
+                + COLUMN_ROOM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_ROOM_NAME + " TEXT,"
+                + COLUMN_ROOM_TYPE + " TEXT,"
+                + COLUMN_ROOM_RATE + " REAL,"
+                + COLUMN_ROOM_IMAGE + " TEXT"
+                + ")";
+        db.execSQL(CREATE_ROOM_TABLE);
 
+        // taoh bảng booking
+        String CREATE_BOOKING_TABLE = "CREATE TABLE " + TABLE_BOOKING + "("
+                + COLUMN_BOOKING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_ROOM_ID_FK + " INTEGER,"
+                + COLUMN_USER_ID_FK + " INTEGER,"
+                + COLUMN_CHECK_IN_DATE + " TEXT,"
+                + COLUMN_CHECK_OUT_DATE + " TEXT,"
+                + COLUMN_IS_CONFIRMED + " INTEGER,"
+                + "FOREIGN KEY(" + COLUMN_ROOM_ID_FK + ") REFERENCES " + TABLE_ROOM + "(" + COLUMN_ROOM_ID + "),"
+                + "FOREIGN KEY(" + COLUMN_USER_ID_FK + ") REFERENCES " + TABLE_USERS + "(" + COLUMN_ID + ")"
+                + ")";
+        db.execSQL(CREATE_BOOKING_TABLE);
+
+        insertData(db);
     }
 
     @Override
@@ -103,13 +148,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String hashPass = PasswordUtils.hashPassword("123");
         // Thêm dữ liệu mẫu cho users
         insertUser(db, "Admin", "Admin@gmail.com", "086868686", hashPass, 1);
+        insertUser(db, "nd", "nd@gmail.com", "321321214", hashPass, 3);
+
 
         // Thêm dữ liệu mẫu cho hotel
-        insertHotel(db, "Hoang gia", "HCM", "https://cdn.tgdd.vn/Products/Images/42/78124/iphone-7-plusgold-400x460-400x460.png\t");
-        insertHotel(db, "Thanh nghi", "HCM", "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png\t");
-        insertHotel(db, "Gia LONG", "HCM","https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png\t");
-        insertHotel(db, "Mường Thanh", "HCM","https://cdn.tgdd.vn/Products/Images/42/214909/samsung-galaxynote-10-lite-chi-tiet-1-400x460.png\t");
-        insertHotel(db, "Mường Thanh", "Hà Nội", "https://cdn.tgdd.vn/Products/Images/42/214909/samsung-galaxynote-10-lite-chi-tiet-1-400x460.png\t");
+        insertHotel(db, "Hoang gia", "HCM", 5, "https://cdn.tgdd.vn/Products/Images/42/78124/iphone-7-plusgold-400x460-400x460.png\t");
+        insertHotel(db, "Thanh nghi", "HCM", 4, "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png\t");
+        insertHotel(db, "Gia LONG", "HCM", 4, "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png\t");
+        insertHotel(db, "Mường Thanh", "HCM", 2, "https://cdn.tgdd.vn/Products/Images/42/214909/samsung-galaxynote-10-lite-chi-tiet-1-400x460.png\t");
+        insertHotel(db, "Mường Thanh", "Hà Nội", 4, "https://cdn.tgdd.vn/Products/Images/42/214909/samsung-galaxynote-10-lite-chi-tiet-1-400x460.png\t");
     }
 
     public long addUser(User user) {
@@ -125,8 +172,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return id;
     }
-
-
 
 
     public int getUserRoleId(String username, String password) {
@@ -175,34 +220,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void insertHotel(SQLiteDatabase db,String hotelName, String location, String image) {
+    private void insertHotel(SQLiteDatabase db, String hotelName, String location, int starRating, String image) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_HOTEL_NAME, hotelName);
         values.put(COLUMN_LOCATION, location);
+        values.put(COLUMN_STAR_RATING, Integer.parseInt(String.valueOf(starRating)));
         values.put(COLUMN_IMAGE, image);
         db.insert(TABLE_HOTEL, null, values);
     }
 
-    public List<String> getHotelSuggestions(String query) {
-        List<String> suggestions = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {COLUMN_HOTEL_NAME};
-        String selection = COLUMN_HOTEL_NAME + " LIKE ?";
-        String[] selectionArgs = {"%" + query + "%"};
-        Cursor cursor = db.query(TABLE_HOTEL, columns, selection, selectionArgs, null, null, null);
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                int columnIndex = cursor.getColumnIndex(COLUMN_HOTEL_NAME);
-                if (columnIndex >= 0) {
-                    String hotelName = cursor.getString(columnIndex);
-                    suggestions.add(hotelName);
-                }
-            }
-            cursor.close();
-        }
-        db.close();
-        return suggestions;
-    }
+
     public Cursor getUserInfoById(int userId) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {COLUMN_ID, COLUMN_USERNAME, COLUMN_EMAIL, COLUMN_PHONE, COLUMN_DOB};
@@ -210,6 +237,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] selectionArgs = {String.valueOf(userId)};
         return db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
     }
+
     public static String getColumnUsername() {
         return COLUMN_USERNAME;
     }
@@ -225,5 +253,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static String getColumnDob() {
         return COLUMN_DOB;
     }
+
+
+
+//    public List<Hotel> getAllHotels() {
+//        List<Hotel> hotelList = new ArrayList<>();
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        String[] columns = {COLUMN_HOTEL_NAME, COLUMN_LOCATION, COLUMN_STAR_RATING, COLUMN_IMAGE};
+//        Cursor cursor = db.query(TABLE_HOTEL, columns, null, null, null, null, null);
+//        if (cursor != null && cursor.moveToFirst()) {
+//            do {
+//                String hotelName = cursor.getString(cursor.getColumnIndex(COLUMN_HOTEL_NAME));
+//                String location = cursor.getString(cursor.getColumnIndex(COLUMN_LOCATION));
+//                int starRating = cursor.getInt(cursor.getColumnIndex(COLUMN_STAR_RATING));
+//                String image = cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE));
+//                Hotel hotel = new Hotel(hotelName, location, starRating, image);
+//                hotelList.add(hotel);
+//            } while (cursor.moveToNext());
+//            cursor.close();
+//        }
+//        db.close();
+//        return hotelList;
+//    }
 
 }
