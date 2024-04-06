@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                int roleId = dbHelper.getUserRoleId(username, password); // Lấy roleId của người dùng
+                int roleId = dbHelper.getUserRoleId(username, password);
 
                 // Kiểm tra kết quả trả về từ getUserRoleId
                 if (roleId == -1) {

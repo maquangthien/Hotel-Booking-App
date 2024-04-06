@@ -40,13 +40,10 @@ public class AccountActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
 
-        // Lấy user ID từ Intent hoặc bundle
         userId = getIntent().getIntExtra("USER_ID", -1);
 
-        // Load thông tin người dùng khi mở hoạt động
         loadUserInfo();
 
-        // Xử lý sự kiện khi nhấn nút Lưu
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
