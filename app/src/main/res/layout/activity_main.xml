@@ -8,8 +8,6 @@
     tools:context=".MainActivity">
 
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,6 +21,21 @@
             android:layout_marginTop="200dp"
             android:background="@drawable/logo" />
 
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:paddingTop="20dp"
+            android:text="H2T Booking Hotel App"
+            android:textAlignment="center"
+            android:textColor="@color/pink"
+            android:textSize="24dp"
+
+            />
+
+
+      
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,33 +45,6 @@
 
 
     </LinearLayout>
-
-
-
-
-    <!-- Danh sách khách sạn phổ biến -->
-<!--    <TextView-->
-<!--        android:id="@+id/popularHotelsTextView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Khách Sạn Phổ Biến"-->
-<!--        android:textSize="20sp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:layout_below="@id/bannerImageView"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:layout_marginStart="16dp"/>-->
-
-    <!-- RecyclerView để hiển thị danh sách khách sạn phổ biến -->
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/popularHotelsRecyclerView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/popularHotelsTextView"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginEnd="16dp"/>-->
-
-    <!-- Các nút chức năng -->
 
 
 </RelativeLayout>
