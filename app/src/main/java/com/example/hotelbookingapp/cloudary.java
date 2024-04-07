@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResult;
@@ -77,6 +78,7 @@ public class cloudary extends AppCompatActivity {
                 public void onReschedule(String requestId, ErrorInfo error) {
                     Log.d(TAG, "onstart: "+error);
                 }
+
             }).dispatch();
         });
 
@@ -111,6 +113,10 @@ public class cloudary extends AppCompatActivity {
     private void selectImage() {
         Intent intent = new Intent();
         intent.setType("image/*"); // chuẩn hình ảnh đc set
+        intent.setType("mp4/*");
+
+
+
 
         intent.setAction(Intent.ACTION_GET_CONTENT);
 
@@ -129,6 +135,7 @@ public class cloudary extends AppCompatActivity {
                         Picasso.get()
                                 .load(imagePath)
                                 .into(imageView);
+
                     }
                 }
             });
